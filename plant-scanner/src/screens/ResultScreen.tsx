@@ -1,46 +1,45 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../App';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../../App'; // ← Sørg for at denne sti er korrekt
 
-type ResultScreenProps = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Result'>;
-  route: RouteProp<RootStackParamList, 'Result'>;
-};
+type Props = NativeStackScreenProps<RootStackParamList, 'Result'>;
 
-export default function ResultScreen({ navigation, route }: ResultScreenProps) {
+export default function ResultScreen({ navigation, route }: Props) {
   const { imageUri } = route.params;
 
-  // Mock plant analysis data
   const plantData = {
     name: 'Common Dandelion',
     scientificName: 'Taraxacum officinale',
     edibility: 'Edible',
     confidence: '95%',
-    description: 'Dandelion is a common flowering plant and every part of it is edible. The leaves are commonly used in salads, while the roots can be made into tea.',
+    description:
+      'Dandelion is a common flowering plant and every part of it is edible. The leaves are commonly used in salads, while the roots can be made into tea.',
     uses: [
       'Salad greens',
       'Tea preparation',
       'Traditional medicine',
-      'Natural dye'
+      'Natural dye',
     ],
     safetyNotes: [
       'Wash thoroughly before consumption',
       'Avoid if harvested from areas treated with pesticides',
       'Some people may be allergic',
-      'Consult with experts before consuming'
-    ]
+      'Consult with experts before consuming',
+    ],
   };
 
   return (
     <ScrollView style={styles.container}>
-      <Image 
-        source={{ uri: imageUri }}
-        style={styles.image}
-        resizeMode="cover"
-      />
-      
+      <Image source={{ uri: imageUri }} style={styles.image} resizeMode="cover" />
+
       <View style={styles.resultContainer}>
         <View style={styles.header}>
           <Text style={styles.plantName}>{plantData.name}</Text>
@@ -58,14 +57,18 @@ export default function ResultScreen({ navigation, route }: ResultScreenProps) {
         <View style={styles.infoSection}>
           <Text style={styles.sectionTitle}>Common Uses</Text>
           {plantData.uses.map((use, index) => (
-            <Text key={index} style={styles.listItem}>• {use}</Text>
+            <Text key={index} style={styles.listItem}>
+              • {use}
+            </Text>
           ))}
         </View>
 
         <View style={styles.infoSection}>
           <Text style={styles.sectionTitle}>Safety Notes</Text>
           {plantData.safetyNotes.map((note, index) => (
-            <Text key={index} style={styles.listItem}>• {note}</Text>
+            <Text key={index} style={styles.listItem}>
+              • {note}
+            </Text>
           ))}
         </View>
 
@@ -125,10 +128,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 16,
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 3,
